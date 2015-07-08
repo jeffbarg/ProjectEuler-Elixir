@@ -3,6 +3,7 @@ As I experiment with Elixir (http://elixir-lang.org), I decided to take on some 
 
 ## Run Instructions ##
 
-After installing elixir & erlang, you can run these scripts by running the command ```bash
+After installing elixir & erlang, you can run these scripts by running the command 
+```bash
 elixir prob17.exs
 ```
