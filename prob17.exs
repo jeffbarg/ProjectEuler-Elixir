@@ -50,11 +50,9 @@ defmodule Problem17 do
         hundreds_digit = div num, 100
         remainder = rem num, 100
 
-        case hundreds_digit do
-            1 ->
-                hundreds_word = "a hundred"
-            _ ->
-                hundreds_word = (word_from_num hundreds_digit) <> " hundred"
+        hundreds_word = case hundreds_digit do
+            1 -> "a hundred"
+            _ -> (word_from_num hundreds_digit) <> " hundred"
         end
 
         case remainder do
