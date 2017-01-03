@@ -56,7 +56,7 @@ defmodule Problem17 do
         end
 
         case remainder do
-            0 ->
+            0 -> 
                 hundreds_word
             _ ->
                 hundreds_word <> " and " <> word_from_num remainder    
