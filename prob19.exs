@@ -21,38 +21,52 @@ defmodule Problem19 do
 			4,
 			6
 		}
-		years = 1900..1999
-		months = 0..11
 
-		Enum.zip(years, months)
+		years = 1901..2000
+
+		year_months = Enum.flat_map(years, 
+			fn year ->
+				Enum.map(0..11, 
+					fn month -> {year, month} end
+				)
+			end
+		)
+
+		year_months
 			|> Enum.map(
-			fn year_month -> (
-				IO.puts rem 9, 7
+			fn (year_month) -> (
+
 				year = elem year_month, 0
 				month = elem year_month, 1
+
 
 				# Take the last two digits of the year.
 				day_of_week = rem year, 100
 
 				# Divide by 4, discarding any fraction.
-				day_of_week = day_of_week / 4
+				day_of_week = trunc(day_of_week / 4)
 
 				# Add the day of the month.
 				day_of_week = day_of_week + 1
 
-				
 				# Add the month's key value: 
 				day_of_week = day_of_week + elem month_value, month
 
 				# Subtract 1 for January or February of a leap year.
-				day_of_week = cond do
-				   rem year, 4 == 0 and month <= 1 -> 
+				day_of_week = (cond do
+				   ((rem year, 4) == 0 && month <= 1) -> 
 				   	day_of_week - 1
 				   true ->
 					day_of_week
-				end
+				end)
 
 				# For a Gregorian date, add 0 for 1900's, 6 for 2000's, 4 for 1700's, 2 for 1800's; for other years, add or subtract multiples of 400.
+				day_of_week = (cond do
+				   (year == 0) -> 
+				   	day_of_week + 6
+				   true ->
+					day_of_week
+				end)
 
 				# For a Julian date, add 1 for 1700's, and 1 for every additional century you go back.
 
@@ -60,12 +74,12 @@ defmodule Problem19 do
 				day_of_week = day_of_week + (rem year, 100)
 
 				# Divide by 7 and take the remainder.
-
 				rem day_of_week, 7
 			) end)
+			# |> Enum.each(&IO.puts/1)
+			# |> Enum.count
+			|> Enum.count(fn day_of_week -> day_of_week == 0 end)
 
-			|> Enum.count(fn day_of_week -> day_of_week == 6 end)
-		
 				# IO.puts month
 
 				# if dayOfWeek == 6 do
